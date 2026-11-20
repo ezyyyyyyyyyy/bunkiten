@@ -893,4 +893,16 @@ function boot(d){if(d&&d.S){S=d.S;if(S.screen==="scene")scene({keep:true});else 
 try{window.claude?.hot?.snapshot?.(()=>({S}))}catch(e){}
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 </script>
-</body></html>
+<script>
+(function(){
+ var ed=(location.pathname.match(/(rarp|rapn)/)||[])[1]||"game";
+ var sent={};
+ function ev(name,title,once){var p=ed+"/"+name;if(once!==false&&sent[p])return;sent[p]=1;
+  var go=function(){try{window.goatcounter.count({path:p,title:title,event:true})}catch(e){}};
+  if(window.goatcounter&&window.goatcounter.count)go();else{var n=0,t=setInterval(function(){if(window.goatcounter&&window.goatcounter.count){clearInterval(t);go()}else if(++n>40)clearInterval(t)},250)}}
+ document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#go"))ev("start",ed.toUpperCase()+" 開始")},true);
+ if(typeof badEnd==="function"){var _b=badEnd;badEnd=function(i,ci){ev("bad-"+String(i+1).padStart(2,"0"),ed.toUpperCase()+" BAD END "+(i+1));return _b.apply(this,arguments)}}
+ if(typeof result==="function"){var _r=result;result=function(){ev("finish",ed.toUpperCase()+" 完走");var o=_r.apply(this,arguments);try{var row=document.querySelector("#view .panel .row");if(row&&!document.getElementById("fbform")){var a=document.createElement("a");a.id="fbform";a.className="btn ghost";a.href="https://docs.google.com/forms/d/e/1FAIpQLSedwYmO4USK2MtjQDIchurLbA-kPxUE_cat_lbro1ZCQPI2JA/viewform";a.target="_blank";a.rel="noopener";a.textContent="感想を送る";a.style.textDecoration="none";a.style.display="inline-flex";a.style.alignItems="center";a.onclick=function(){ev("feedback-click",ed.toUpperCase()+" 感想フォーム")};row.appendChild(a)}}catch(e){}return o}}
+ new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1&&n.classList.contains("te")&&location.hash!=="#trueend")ev("true-end",ed.toUpperCase()+" TRUE END 到達")})})}).observe(document.body,{childList:true});
+})();
+</script><script data-goatcounter="https://uroronea.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
